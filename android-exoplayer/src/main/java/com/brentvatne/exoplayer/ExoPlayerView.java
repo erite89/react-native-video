@@ -11,6 +11,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.util.TypedValue;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -166,6 +167,10 @@ public final class ExoPlayerView extends FrameLayout {
             this.useTextureView = useTextureView;
             updateSurfaceView();
         }
+    }
+
+    public void setFontSizeTrack(int fontSizeTrack) {
+        subtitleLayout.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, fontSizeTrack );
     }
 
     public void setHideShutterView(boolean hideShutterView) {
