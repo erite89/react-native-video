@@ -16,7 +16,6 @@ import android.view.accessibility.CaptioningManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.view.WindowManager;
 
 import com.brentvatne.react.R;
 import com.brentvatne.receiver.AudioBecomingNoisyReceiver;
@@ -171,10 +170,10 @@ class ReactExoplayerView extends FrameLayout implements
             }
         }
     };
-
+    
     public double getPositionInFirstPeriodMsForCurrentWindow(long currentPosition) {
         Timeline.Window window = new Timeline.Window();
-        if(!player.getCurrentTimeline().isEmpty()) {
+        if(!player.getCurrentTimeline().isEmpty()) {    
             player.getCurrentTimeline().getWindow(player.getCurrentWindowIndex(), window);
         }
         return window.windowStartTimeMs + currentPosition;
@@ -224,13 +223,11 @@ class ReactExoplayerView extends FrameLayout implements
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         initializePlayer();
-        setKeepScreenOn(true);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        setKeepScreenOn(false);
         /* We want to be able to continue playing audio when switching tabs.
          * Leave this here in case it causes issues.
          */
@@ -607,9 +604,9 @@ class ReactExoplayerView extends FrameLayout implements
         } else {
             initializePlayer();
         }
-        // if (!disableFocus) {
-        //     setKeepScreenOn(true);
-        // }
+        if (!disableFocus) {
+            setKeepScreenOn(true);
+        }
     }
 
     private void pausePlayback() {
@@ -618,7 +615,7 @@ class ReactExoplayerView extends FrameLayout implements
                 setPlayWhenReady(false);
             }
         }
-        // setKeepScreenOn(false);
+        setKeepScreenOn(false);
     }
 
     private void stopPlayback() {
@@ -1191,7 +1188,6 @@ class ReactExoplayerView extends FrameLayout implements
             } else {
                 pausePlayback();
             }
-            setKeepScreenOn(!isPaused);
         }
     }
 
